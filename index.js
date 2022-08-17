@@ -16,6 +16,18 @@ app.get('/talker', (_req, res) => {
     : res.status(HTTP_OK_STATUS).json(talker));
 });
 
+app.get('/talker/:id', (req, res) => {
+  const { id } = req.params;
+  const data = fs.readFileSync('talker.json');
+  const talkers = JSON.parse(data);
+  
+  const talker = talkers.find((t) => t.id === Number(id));
+
+  return (!talker
+    ? res.status(404).json({ message: 'Pessoa palestrante não encontrada' })
+    : res.status(HTTP_OK_STATUS).json(talker));
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
