@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const token = require('./middlewares/tokenGenerator');
+const { emailValidation, passwordValidation } = require('./middlewares/loginValidation');
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,6 +29,9 @@ app.get('/talker/:id', (req, res) => {
     ? res.status(404).json({ message: 'Pessoa palestrante não encontrada' })
     : res.status(HTTP_OK_STATUS).json(talker));
 });
+
+app.post('/login', emailValidation, passwordValidation, (_req, res) =>
+  res.status(HTTP_OK_STATUS).json({ token: token() }));
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
