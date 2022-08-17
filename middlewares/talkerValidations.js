@@ -1,3 +1,5 @@
+const rateError = 'O campo "rate" deve ser um inteiro de 1 à 5';
+
 const tokenValidation = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) return res.status(401).json({ message: 'Token não encontrado' });
@@ -45,10 +47,11 @@ const watchedAtValidation = (req, res, next) => {
 
 const rateValidation = (req, res, next) => {
   const { talk: { rate } } = req.body;
-  if (!rate) return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
 
-  return (rate < 1 || rate > 5
-    ? res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' })
+  if (rate > 5 || rate < 1) return res.status(400).json({ message: rateError });
+
+  return (!rate
+    ? res.status(400).json({ message: 'O campo "rate" é obrigatório' })
     : next());
 };
 
