@@ -65,6 +65,16 @@ ageValidation, talkValidation, watchedAtValidation, rateValidation, (req, res) =
   return res.status(HTTP_OK_STATUS).json(updatedTalker);
 });
 
+app.delete('/talker/:id', tokenValidation, (req, res) => {
+  const data = fs.readFileSync(talkerJSON, 'utf8');
+  const talkers = JSON.parse(data);
+  const { id } = req.params;
+  const newTalkersList = talkers.filter((t) => t.id !== Number(id));
+  fs.writeFileSync(talkerJSON, JSON.stringify(newTalkersList));
+
+  return res.status(204).end();
+});
+
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
