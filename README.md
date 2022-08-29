@@ -15,17 +15,17 @@
 - Arquivo *.gitignore*;
 - Arquivo *jest.config.js*.
 
-#### - Rodando com Docker:
-##### - Rode o serviço node com o comando *docker-compose up -d*.
+### - Rodando com Docker:
+#### - Rode o serviço node com o comando *docker-compose up -d*.
 - Esse serviço irá inicializar um container chamado talker_manager.
 
-##### - Use o comando *docker exec -it talker_manager bash*.
+#### - Use o comando *docker exec -it talker_manager bash*.
 - Ele te dará acesso ao terminal interativo do container criado pelo compose, que está rodando em segundo plano.
 
-##### - Instale as dependências com *npm install*
+#### - Instale as dependências com *npm install*
 
 ### - Rodando sem Docker:
-##### - Instale as dependências com *npm install*
+#### - Instale as dependências com *npm install*
 
 ### - Executar a aplicação:
-##### - Use o comando *npm start*.
+#### - Use o comando *npm start*.
